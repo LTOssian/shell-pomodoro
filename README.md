@@ -21,6 +21,13 @@ cd shell-pomodoro
 ./pomorodo
 ```
 
+example command:
+
+```bash
+./pomodoro -s 45 -p 8 -n 6
+# will start the script for 6 times 45 minutes work session with 8 minutes of pause 
+```
+
 ## Help
 
 - -s, set time for sessions (in minutes) \default: 30
