@@ -12,7 +12,7 @@
 
 #DEFAULT VALUES
 TITLE="PomodoShell"
-SESSION_DURATION=1
+SESSION_DURATION=30
 PAUSE_DURATION=5
 N_SESSIONS=3
 
@@ -61,7 +61,7 @@ start() {
         while [[ $(date +%s) -lt $PAUSE ]]
         do 
             clear
-            echo "Next session starts in :"
+            echo "Next session($i + 1) starts in :"
             echo "$((PAUSE - $(date +%s) ))" | awk '{print int($1/60)"m :"int($1%60)"s"}'
             sleep 1
         done
