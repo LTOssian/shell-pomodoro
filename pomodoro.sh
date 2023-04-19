@@ -14,12 +14,12 @@
 #DEFAULT VALUES
 TITLE="PomodoShell"
 SESSION_DURATION=30
-PAUSE_DURANTION=5
+PAUSE_DURANTION=1
 N_SESSIONS=3
 
 show_help() {
     HELP="
-    -s, set time for sessions (in minute) \default: 30
+    -s, set time for sessions (in minutes) \default: 30
     -p, set time for pauses (in minutes) \default: 5
     -n, set number of sessions \default: 3
     "
@@ -38,6 +38,30 @@ show_credits() {
     "
 
     echo "$CREDITS"
+}
+
+chronometer () {
+    START=$(($(date +%s) + $1))
+
+    while [[ "$START" -ge "$(date +%s)" ]]
+    do
+        echo "test"
+    done
+
+}
+
+start() {
+    SESSION_DURATION=$(echo "($SESSION_DURATION * 60)/1" | bc)
+    PAUSE_DURANTION=$(echo "($PAUSE_DURATION * 60)/1" | bc)
+    COUNT=0
+
+    while [[ COUNT -lt N_SESSIONS ]]
+    do 
+        clear
+        chronometer SESSION_DURATION 
+        echo "End of session"
+        ((COUNT = COUNT + 1))
+    done
 }
 
 
@@ -73,3 +97,5 @@ do
             ;;
         esac
 done
+
+start
