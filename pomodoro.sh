@@ -13,8 +13,8 @@
 
 #DEFAULT VALUES
 TITLE="PomodoShell"
-SESSION_DURATION=30
-PAUSE_DURANTION=1
+SESSION_DURATION=1
+PAUSE_DURATION=5
 N_SESSIONS=3
 
 show_help() {
@@ -40,32 +40,25 @@ show_credits() {
     echo "$CREDITS"
 }
 
-chronometer () {
-    START=$(($(date +%s) + $1))
-
-    while [[ "$START" -ge "$(date +%s)" ]]
-    do
-        echo "test"
-    done
-
-}
-
 start() {
-    SESSION_DURATION=$(echo "($SESSION_DURATION * 60)/1" | bc)
-    PAUSE_DURANTION=$(echo "($PAUSE_DURATION * 60)/1" | bc)
+    SESSION_DURATION=$(expr $SESSION_DURATION \* 60)
+    PAUSE_DURATION=$(expr $PAUSE_DURATION \* 60)
     COUNT=0
 
-    while [[ COUNT -lt N_SESSIONS ]]
+
+    for((i=0; i < $N_SESSIONS; i++))
     do 
-        clear
-        chronometer SESSION_DURATION 
+        START=$(($(date +%s) + $SESSION_DURATION))
+        while [[ $(date +%s) -lt $START ]]
+        do  
+            clear
+            echo "Current session : $i / $N_SESSIONS"
+            echo "$((START - $(date +%s) ))" | awk '{print int($1/60)"m :"int($1%60)"s"}'
+            sleep 1
+        done
         echo "End of session"
-        ((COUNT = COUNT + 1))
     done
 }
-
-
-
 
 # While the number of arguments passed is greater than 0
 while [[ $# -gt 0 ]]
