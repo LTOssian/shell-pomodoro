@@ -12,6 +12,7 @@
 #| Date: 19/04/2023
 
 #DEFAULT VALUES
+TITLE="PomodoShell"
 SESSION_DURATION=30
 PAUSE_DURANTION=5
 N_SESSIONS=3
@@ -25,6 +26,21 @@ show_help() {
 
     echo "$HELP"
 }
+
+show_credits() {
+    CREDITS="
+    AUTHOR: Louisan TCHITOULA
+    Date: 19/04/2023
+    GitHub: LTOssian
+    LinkedIn: Louisan Tchitoula
+
+    Thanks for trying it out, any feedback is welcomed.
+    "
+
+    echo "$CREDITS"
+}
+
+
 
 
 # While the number of arguments passed is greater than 0
@@ -45,6 +61,10 @@ do
             ;;
         -h|--help)
             show_help
+            exit 0
+            ;;
+        -c|--credit)
+            show_credits
             exit 0
             ;;
         *)
