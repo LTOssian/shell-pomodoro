@@ -48,7 +48,6 @@ start() {
     for((i=0; i < $N_SESSIONS; i++))
     do 
         START=$(($(date +%s) + $SESSION_DURATION))
-        PAUSE=$(($(date +%s) + $PAUSE_DURATION))
         while [[ $(date +%s) -lt $START ]]
         do  
             clear
@@ -57,6 +56,8 @@ start() {
             sleep 1
         done
 
+
+        PAUSE=$(($(date +%s) + $PAUSE_DURATION))
         while [[ $(date +%s) -lt $PAUSE ]]
         do 
             clear
@@ -65,6 +66,8 @@ start() {
             sleep 1
         done
     done
+
+    echo "$(date +"%Y-%m-%d"): $N_SESSIONS sessions of $SESSION_DURATION minutes" >> logs
 }
 
 # While the number of arguments passed is greater than 0
