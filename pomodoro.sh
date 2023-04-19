@@ -5,7 +5,6 @@
 #| Description: This script allows to start pomodoro session within the command line
 #|        1) You choose the duration of session or/and the duration of pauses.
 #|        2) It keeps track of your total session hours.
-#|        4) Rings a sound when a session is over.
 #|
 #|-----------------------------------------------------------------------------------------------------------------|
 #| Author: Louisan TCHITOULA
@@ -49,6 +48,7 @@ start() {
     for((i=0; i < $N_SESSIONS; i++))
     do 
         START=$(($(date +%s) + $SESSION_DURATION))
+        PAUSE=$(($(date +%s) + $PAUSE_DURATION))
         while [[ $(date +%s) -lt $START ]]
         do  
             clear
@@ -56,7 +56,14 @@ start() {
             echo "$((START - $(date +%s) ))" | awk '{print int($1/60)"m :"int($1%60)"s"}'
             sleep 1
         done
-        echo "End of session"
+
+        while [[ $(date +%s) -lt $PAUSE ]]
+        do 
+            clear
+            echo "Next session starts in :"
+            echo "$((PAUSE - $(date +%s) ))" | awk '{print int($1/60)"m :"int($1%60)"s"}'
+            sleep 1
+        done
     done
 }
 
